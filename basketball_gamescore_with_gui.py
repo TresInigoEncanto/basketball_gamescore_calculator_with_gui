@@ -1,12 +1,12 @@
 from tkinter import *
 from tkinter import messagebox
 
-CALCULATOR_WINDOW = Tk()
-CALCULATOR_WINDOW.title("Basketball Gamescore Calculator")
+main_window = Tk()
+main_window.title("Basketball Gamescore Calculator")
 
-CALCULATOR_WINDOW.config(background='orange')
+main_window.config(background='orange')
 
-stat_lines = [
+STAT_LINES = [
     ("Points Scored", 'point'), ("Field Goals Made", 'field goal'), 
     ("Field Goal Attempts", 'field goal attempt'), ("Freethrows Made", 'freethrow'), 
     ("Freethrow Attempts", 'freethrow attempt'), ("Offensive Rebounds", 'offensive rebound'), 
@@ -40,7 +40,7 @@ def calculate_game_score():
     except ValueError:
         messagebox.showerror("Input Error!", "Please enter valid numbers in all fields.")
 
-header = Label(CALCULATOR_WINDOW, 
+header = Label(main_window, 
               text="Basketball Gamescore Calculator", 
               font=('Comic Sans MS', 40, 'bold'),
               foreground='black',
@@ -48,31 +48,26 @@ header = Label(CALCULATOR_WINDOW,
               relief=RAISED,
               border=10,
               padx=5)
-header.pack()
-
 header.pack(pady=10)
 
-# 1. CREATE A MAIN CONTAINER FOR THE BODY
-body_frame = Frame(CALCULATOR_WINDOW, bg='orange')
+body_frame = Frame(main_window, bg='orange')
 body_frame.pack(fill=BOTH, expand=True, padx=20)
 
-# 2. CREATE THE LEFT COLUMN (For Stats)
 left_column = Frame(body_frame, bg='orange')
 left_column.pack(side=LEFT, fill=Y, padx=10)
 
-for label_text, key in stat_lines:
+for label_text, key in STAT_LINES:
     row = Frame(left_column, bg='orange')
     row.pack(fill=X, pady=2)
     
-    lbl = Label(row, text=label_text, width=20, anchor='w', bg='orange', font=('Arial', 12, 'bold'))
-    lbl.pack(side=LEFT)
+    label = Label(row, text=label_text, width=20, anchor='w', background='orange', font=('Arial', 12, 'bold'))
+    label.pack(side=LEFT)
     
-    ent = Entry(row)
-    ent.pack(side=LEFT, padx=5)
-    entries[key] = ent
+    entry = Entry(row)
+    entry.pack(side=LEFT, padx=5)
+    entries[key] = entry
 
-# 3. CREATE THE RIGHT COLUMN (For the Paragraph)
-right_column = Frame(body_frame, bg='white', relief=SUNKEN, border=2)
+right_column = Frame(body_frame, background='white', relief=SUNKEN, border=2)
 right_column.pack(side=RIGHT, fill=BOTH, expand=True, padx=10, pady=10)
 
 info_text = (
@@ -90,12 +85,11 @@ info_label = Label(right_column, text=info_text, font=('Arial', 11),
                    wraplength=300, justify=LEFT, bg='white', padx=15, pady=15)
 info_label.pack()
 
-# 4. BUTTON AT THE BOTTOM
-calculate_button = Button(CALCULATOR_WINDOW, text="Calculate Gamescore", command=calculate_game_score)
+calculate_button = Button(main_window, text="Calculate Gamescore", command=calculate_game_score)
 calculate_button.config(font=('Arial', 20, 'bold'), activebackground='blue')
 calculate_button.pack(pady=20)
 
-ICON = PhotoImage(file='C:\\Users\\azale\\Desktop\\python_projects\\ball_icon.png')
-CALCULATOR_WINDOW.iconphoto(True, ICON)
+icon_image = PhotoImage(file='ball_icon.png')
+main_window.iconphoto(True, icon_image)
 
-CALCULATOR_WINDOW.mainloop()
+main_window.mainloop()
